@@ -330,13 +330,13 @@ SCM_DEFINE (scm_zmq_msg_send, "zmq-send", 2, 1, 0,
   else
     cflags = scm_to_int (flags);
   
-  if (zmq_msg_init_size (&msg, SCM_BYTEVECTOR_LENGTH (bv)))
+  if (-1 == zmq_msg_init_size (&msg, SCM_BYTEVECTOR_LENGTH (bv)))
     scm_zmq_error (FUNC_NAME);
   
   memcpy (zmq_msg_data (&msg), SCM_BYTEVECTOR_CONTENTS (bv),
           SCM_BYTEVECTOR_LENGTH (bv));
   
-  if (-1 == zmq_msg_send (s, &msg, cflags))
+  if (-1 == zmq_msg_send (&msg, s, cflags))
     {
       int errno_save = errno;
       zmq_msg_close (&msg);
@@ -370,7 +370,7 @@ SCM_DEFINE (scm_zmq_msg_recv, "zmq-recv", 1, 1, 0,
   if (zmq_msg_init (&msg))
     scm_zmq_error (FUNC_NAME);
   
-  if (-1 == zmq_msg_recv (s, &msg, cflags))
+  if (-1 == zmq_msg_recv (&msg, s, cflags))
     scm_zmq_error (FUNC_NAME);
 
   ret = scm_c_make_bytevector (zmq_msg_size (&msg));
