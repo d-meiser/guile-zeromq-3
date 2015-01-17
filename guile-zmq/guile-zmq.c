@@ -314,10 +314,10 @@ SCM_DEFINE (scm_zmq_connect, "zmq-connect", 2, 0, 0,
 #undef FUNC_NAME
 
 
-SCM_DEFINE (scm_zmq_send, "zmq-send", 2, 1, 0,
+SCM_DEFINE (scm_zmq_msg_send, "zmq-send", 2, 1, 0,
 	    (SCM socket, SCM bv, SCM flags),
 	    "Send @var{bv} over @var{socket}.")
-#define FUNC_NAME s_scm_zmq_send
+#define FUNC_NAME s_scm_zmq_msg_send
 {
   void *s;
   int cflags;
@@ -336,7 +336,7 @@ SCM_DEFINE (scm_zmq_send, "zmq-send", 2, 1, 0,
   memcpy (zmq_msg_data (&msg), SCM_BYTEVECTOR_CONTENTS (bv),
           SCM_BYTEVECTOR_LENGTH (bv));
   
-  if (zmq_send (s, &msg, cflags))
+  if (-1 == zmq_msg_send (s, &msg, cflags))
     {
       int errno_save = errno;
       zmq_msg_close (&msg);
@@ -351,10 +351,10 @@ SCM_DEFINE (scm_zmq_send, "zmq-send", 2, 1, 0,
 #undef FUNC_NAME
 
 
-SCM_DEFINE (scm_zmq_recv, "zmq-recv", 1, 1, 0,
+SCM_DEFINE (scm_zmq_msg_recv, "zmq-recv", 1, 1, 0,
 	    (SCM socket, SCM flags),
 	    "Receive a message from @var{socket}.")
-#define FUNC_NAME s_scm_zmq_recv
+#define FUNC_NAME s_scm_zmq_msg_recv
 {
   void *s;
   int cflags;
@@ -370,7 +370,7 @@ SCM_DEFINE (scm_zmq_recv, "zmq-recv", 1, 1, 0,
   if (zmq_msg_init (&msg))
     scm_zmq_error (FUNC_NAME);
   
-  if (zmq_recv (s, &msg, cflags))
+  if (-1 == zmq_msg_recv (s, &msg, cflags))
     scm_zmq_error (FUNC_NAME);
 
   ret = scm_c_make_bytevector (zmq_msg_size (&msg));
@@ -417,18 +417,14 @@ scm_init_zmq (void)
     scm_c_define ("ZMQ_PUSH", scm_from_int (ZMQ_PUSH));
     scm_c_define ("ZMQ_XPUB", scm_from_int (ZMQ_XPUB));
     scm_c_define ("ZMQ_XSUB", scm_from_int (ZMQ_XSUB));
-    scm_c_define ("ZMQ_UPSTREAM", scm_from_int (ZMQ_UPSTREAM));
-    scm_c_define ("ZMQ_DOWNSTREAM", scm_from_int (ZMQ_DOWNSTREAM));
 
-    scm_c_define ("ZMQ_HWM", scm_from_int (ZMQ_HWM));
-    scm_c_define ("ZMQ_SWAP", scm_from_int (ZMQ_SWAP));
+    //    scm_c_define ("ZMQ_HWM", scm_from_int (ZMQ_HWM));
     scm_c_define ("ZMQ_AFFINITY", scm_from_int (ZMQ_AFFINITY));
     scm_c_define ("ZMQ_IDENTITY", scm_from_int (ZMQ_IDENTITY));
     scm_c_define ("ZMQ_SUBSCRIBE", scm_from_int (ZMQ_SUBSCRIBE));
     scm_c_define ("ZMQ_UNSUBSCRIBE", scm_from_int (ZMQ_UNSUBSCRIBE));
     scm_c_define ("ZMQ_RATE", scm_from_int (ZMQ_RATE));
     scm_c_define ("ZMQ_RECOVERY_IVL", scm_from_int (ZMQ_RECOVERY_IVL));
-    scm_c_define ("ZMQ_MCAST_LOOP", scm_from_int (ZMQ_MCAST_LOOP));
     scm_c_define ("ZMQ_SNDBUF", scm_from_int (ZMQ_SNDBUF));
     scm_c_define ("ZMQ_RCVBUF", scm_from_int (ZMQ_RCVBUF));
     scm_c_define ("ZMQ_RCVMORE", scm_from_int (ZMQ_RCVMORE));
@@ -438,10 +434,9 @@ scm_init_zmq (void)
     scm_c_define ("ZMQ_LINGER", scm_from_int (ZMQ_LINGER));
     scm_c_define ("ZMQ_RECONNECT_IVL", scm_from_int (ZMQ_RECONNECT_IVL));
     scm_c_define ("ZMQ_BACKLOG", scm_from_int (ZMQ_BACKLOG));
-    scm_c_define ("ZMQ_RECOVERY_IVL_MSEC", scm_from_int (ZMQ_RECOVERY_IVL_MSEC));
     scm_c_define ("ZMQ_RECONNECT_IVL_MAX", scm_from_int (ZMQ_RECONNECT_IVL_MAX));
     
-    scm_c_define ("ZMQ_NOBLOCK", scm_from_int (ZMQ_NOBLOCK));
+    scm_c_define ("ZMQ_DONTWAIT", scm_from_int (ZMQ_DONTWAIT));
     scm_c_define ("ZMQ_SNDMORE", scm_from_int (ZMQ_SNDMORE));
 
     initialized = 1;
