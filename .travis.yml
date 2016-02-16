@@ -15,7 +15,8 @@ cache:
 before_install:
   - sh ./utilities/get_guile.sh
   - export PKG_CONFIG_PATH=`pwd`/guile/lib/pkgconfig
-  - export LD_LIBRARY_PATH=`pwd`/guile/lib
+  - export LD_LIBRARY_PATH=`pwd`/guile/lib:$LD_LIBRARY_PATH
+  - export PATH=`pwd`/guile/bin:$PATH
 script:
   - ./autogen.sh
   - ./configure
