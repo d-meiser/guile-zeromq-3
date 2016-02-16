@@ -9,6 +9,7 @@
   (let* ((context (zmq-init))
          (sock (zmq-socket context ZMQ_REP)))
     (zmq-bind sock "tcp://*:5555")
+    (display %load-path)
     (let loop ()
       (let ((recvd (zmq-recv sock)))
         (display (format #f "Received: ~s\n" (utf8->string recvd)))

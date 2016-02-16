@@ -20,9 +20,10 @@ before_install:
   - export PATH=`pwd`/guile/bin:$PATH
 script:
   - ./autogen.sh
-  - ./configure --prefix=`pwd`/guile/site/2.0
+  - ./configure --prefix=`pwd`/guile/site/
   - make
   - make install
+  - ls `pwd`/site/
   - guile -e main examples/hello-srv.scm &
   - guile -e main examples/hello-client.scm
 
