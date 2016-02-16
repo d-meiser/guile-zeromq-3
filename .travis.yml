@@ -20,7 +20,7 @@ before_install:
   - export PATH=`pwd`/guile/bin:$PATH
 script:
   - ./autogen.sh
-  - ./configure
+  - ./configure --prefix=`pwd`/guile/site/2.0
   - make
   - make install
 
