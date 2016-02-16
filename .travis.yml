@@ -23,4 +23,6 @@ script:
   - ./configure --prefix=`pwd`/guile/site/2.0
   - make
   - make install
+  - guile -e main examples/hello-srv.scm &
+  - guile -e main examples/hello-client.scm
 
