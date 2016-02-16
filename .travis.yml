@@ -8,6 +8,7 @@ addons:
     - libgmp-dev
     - libunistring-dev
     - libgc-dev
+    - texinfo
 cache:
   directories:
   - guile
