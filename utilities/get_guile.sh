@@ -1,7 +1,7 @@
 #!/bin/sh
 
-if [ -f guile-2.0.11/libguie.h ]; then
-  echo "libguile.h found -- nothing to build."
+if [ -f guile/bin/guile ]; then
+  echo "guile found -- nothing to build."
 else
   if [ -f guile-2.0.11/libguile.h ]; then
     echo "guile sources found -- don't need to download"
