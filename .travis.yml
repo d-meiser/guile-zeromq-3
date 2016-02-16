@@ -5,6 +5,7 @@ addons:
   apt:
     packages:
     - libzmq-dev
+    - libgmp-dev
 cache:
   directories:
   - guile
