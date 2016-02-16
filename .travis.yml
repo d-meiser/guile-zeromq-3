@@ -9,6 +9,7 @@ addons:
     - libunistring-dev
     - libgc-dev
     - texinfo
+    - lcov
 cache:
   directories:
   - guile
@@ -18,11 +19,14 @@ before_install:
   - export PKG_CONFIG_PATH=`pwd`/guile/lib/pkgconfig
   - export LD_LIBRARY_PATH=`pwd`/guile/lib:$LD_LIBRARY_PATH
   - export PATH=`pwd`/guile/bin:$PATH
+  - gem install coveralls-lcov
 script:
   - ./autogen.sh
-  - ./configure --prefix=`pwd`/guile
+  - CFLAGS="-fprofile-arcs -ftest-coverage" LDFLAGS="-lgcov" ./configure --prefix=`pwd`/guile
   - make
   - make install
   - guile -e main examples/hello-srv.scm &
   - guile -e main examples/hello-client.scm
-
+after_success:
+  - lcov -d tests -d src -base-directory . -c -o coverage.info
+  - coveralls-lcov coverage.info
