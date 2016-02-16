@@ -1,2 +1,0 @@
-
-(display %load-path)
