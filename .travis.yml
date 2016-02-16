@@ -7,6 +7,7 @@ addons:
     - libzmq-dev
     - libgmp-dev
     - libunistring-dev
+    - libgc-dev
 cache:
   directories:
   - guile
