@@ -1,5 +1,5 @@
-Guile-0MQ README
-Last updated 16 March 2011.
+[![Build
+Status](https://travis-ci.org/d-meiser/guile-zeromq-3.svg?branch=master)](https://travis-ci.org/d-meiser/guile-zeromq-3)
 
 
 About Guile-0MQ
