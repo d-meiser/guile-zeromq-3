@@ -1,0 +1,19 @@
+sudo: false
+virtualenv:
+  system_site_packages: true
+addons:
+  apt:
+    packages:
+    - libzmq-dev
+cache:
+  directories:
+  - guile
+  - guile-2.0.11
+before_install:
+  - sh ./utilities/get_guile.sh
+script:
+  - ./autogen.sh
+  - ./configure
+  - make
+  - make install
+
