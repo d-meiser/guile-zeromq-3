@@ -28,5 +28,7 @@ script:
   - guile -e main examples/hello-srv.scm &
   - guile -e main examples/hello-client.scm
 after_success:
-  - lcov -d examples -d . -base-directory . -c -o coverage.info
+  - find . | grep gcno
+  - find . | grep gcda
+  - lcov -d guile-zmq -base-directory . -c -o coverage.info
   - coveralls-lcov coverage.info
