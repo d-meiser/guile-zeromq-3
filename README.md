@@ -1,6 +1,6 @@
-[![Build
-Status](https://travis-ci.org/d-meiser/guile-zeromq-3.svg?branch=master)](https://travis-ci.org/d-meiser/guile-zeromq-3)
+[![Build Status](https://travis-ci.org/d-meiser/guile-zeromq-3.svg?branch=master)](https://travis-ci.org/d-meiser/guile-zeromq-3)
 
+[![Coverage Status](https://coveralls.io/repos/github/d-meiser/guile-zeromq-3/badge.svg?branch=master)](https://coveralls.io/github/d-meiser/guile-zeromq-3?branch=master)
 
 About Guile-0MQ
 ===============
