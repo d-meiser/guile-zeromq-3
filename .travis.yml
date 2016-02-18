@@ -30,5 +30,5 @@ script:
 after_success:
   - find . | grep gcno
   - find . | grep gcda
-  - lcov -d guile-zmq -base-directory . -c -o coverage.info
+  - lcov -d guile-zmq --base-directory ./guile-zmq -c -o coverage.info
   - coveralls-lcov coverage.info
